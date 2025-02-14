@@ -16,6 +16,7 @@ export const clerkWebhooks=async(req,res)=>{
 
         switch (type) {
             case "user.created":{
+                console.log("cre")
                 const userData={
                     clerkId:data.id,
                     email:data.email_addresses[0].email_address,
@@ -39,11 +40,14 @@ export const clerkWebhooks=async(req,res)=>{
                 break;
             } 
             case "user.deleted":{
+                console.log("de")
                 await userModel.findOneAndDelete({clerkId:data.id})
                 res.json({})
                 break;
             }
             default:
+                console.log("....")
+                res.json({})
                 break;
         }
 
