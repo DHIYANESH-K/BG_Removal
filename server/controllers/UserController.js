@@ -3,7 +3,9 @@ import userModel from "../models/userModel.js"
 import 'dotenv/config'
 
 export const clerkWebhooks=async(req,res)=>{
+    console.log("webhook called",req.body)
     try {
+        res.status(200).json({ success: true });
         const whook=new Webhook(process.env.CLERK_WEBHOOK_SECRET)
 
         await whook.verify(JSON.stringify(req.body),{
@@ -12,6 +14,7 @@ export const clerkWebhooks=async(req,res)=>{
             "svix-signature":req.headers["svix-signature"]
         })
 
+        console.log("verified")
         const {data,type}=req.body
 
         switch (type) {
@@ -53,7 +56,7 @@ export const clerkWebhooks=async(req,res)=>{
 
 
     } catch (error) {
-        console.log(error.message);
+        console.log("eroor");
         res.json({success:false,message:error.message})
     }
 }
