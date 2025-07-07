@@ -5,7 +5,7 @@ import 'dotenv/config'
 export const clerkWebhooks=async(req,res)=>{
     console.log("webhook called",req.body)
     try {
-        res.status(200).json({ success: true });
+        // res.status(200).json({ success: true });
         const whook=new Webhook(process.env.CLERK_WEBHOOK_SECRET)
 
         await whook.verify(JSON.stringify(req.body),{
